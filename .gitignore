@@ -36,3 +36,8 @@ out/
 # Documentation temp files
 docs/*.pdf
 docs/*.tmp
+
+# Backend dependencies and generated files
+backend/vendor/
+backend/node_modules/
+backend/.env
