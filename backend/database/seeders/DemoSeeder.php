@@ -209,31 +209,33 @@ class DemoSeeder extends Seeder
 
         $employees = [];
         foreach ($users as $userData) {
-            $user = User::create([
-                'institution_id' => $institution->id,
-                'username' => $userData['username'],
-                'email' => $userData['email'],
-                'password' => Hash::make($userData['password']),
-                'phone' => '0812345678' . rand(10, 99),
-                'user_type' => $userData['user_type'],
-                'is_active' => true,
-            ]);
-
+            // First create employee
             $employee = Employee::create([
-                'user_id' => $user->id,
                 'institution_id' => $institution->id,
                 'branch_id' => $branch->id,
                 'employee_number' => $userData['employee']['employee_number'],
                 'full_name' => $userData['employee']['full_name'],
                 'gender' => $userData['employee']['gender'],
-                'birth_date' => Carbon::now()->subYears(rand(25, 40))->format('Y-m-d'),
-                'phone' => $user->phone,
-                'email' => $user->email,
+                'date_of_birth' => Carbon::now()->subYears(rand(25, 40))->format('Y-m-d'),
+                'phone' => '0812345678' . rand(10, 99),
+                'email' => $userData['email'],
                 'address' => 'Jl. Contoh No. ' . rand(1, 100) . ', Jakarta',
                 'department_id' => $departmentModels[$userData['employee']['department']]->id,
                 'position_id' => $positionModels[$userData['employee']['position']]->id,
                 'join_date' => Carbon::now()->subMonths(rand(1, 24))->format('Y-m-d'),
-                'employee_status' => 'permanent',
+                'status' => 'active',
+            ]);
+
+            // Then create user with employee_id
+            $user = User::create([
+                'institution_id' => $institution->id,
+                'employee_id' => $employee->id,
+                'username' => $userData['username'],
+                'email' => $userData['email'],
+                'password' => Hash::make($userData['password']),
+                'phone' => $employee->phone,
+                'role' => $userData['user_type'],
+                'is_active' => true,
             ]);
 
             $employees[] = $employee;
