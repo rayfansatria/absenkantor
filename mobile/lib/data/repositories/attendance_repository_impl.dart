@@ -15,5 +15,10 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   // - getAttendanceSummary(): GET from ApiConfig.attendanceSummary
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in AttendanceRepositoryImpl. '
+      'Please implement this method according to the TODO comments above.'
+    );
+  }
 }

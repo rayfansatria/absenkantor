@@ -13,5 +13,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   // - getHolidays(): GET from ApiConfig.holidays with year
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in ScheduleRepositoryImpl. '
+      'Please implement this method to handle schedule operations.'
+    );
+  }
 }

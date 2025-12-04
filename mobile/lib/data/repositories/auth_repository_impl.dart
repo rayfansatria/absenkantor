@@ -84,7 +84,9 @@ class AuthRepositoryImpl implements AuthRepository {
         return newToken;
       }
     } catch (e) {
-      // Handle error
+      // Log error and return null to indicate failure
+      print('Error refreshing token: $e');
+      // In production, use proper logging service
     }
     return null;
   }

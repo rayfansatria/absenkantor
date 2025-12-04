@@ -28,11 +28,14 @@ return new class extends Migration
             });
         } else {
             Schema::table('users', function (Blueprint $table) {
+                // Add columns only if they don't exist
+                // Note: Run data validation before adding foreign key constraints
+                // to ensure no orphaned records exist
                 if (!Schema::hasColumn('users', 'institution_id')) {
-                    $table->foreignId('institution_id')->nullable()->constrained()->onDelete('cascade');
+                    $table->foreignId('institution_id')->nullable()->after('id');
                 }
                 if (!Schema::hasColumn('users', 'employee_id')) {
-                    $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
+                    $table->foreignId('employee_id')->nullable()->after('institution_id');
                 }
                 if (!Schema::hasColumn('users', 'username')) {
                     $table->string('username')->unique()->after('id');
@@ -50,6 +53,14 @@ return new class extends Migration
                     $table->boolean('is_active')->default(true);
                 }
             });
+            
+            // Add foreign key constraints separately after ensuring data integrity
+            // This should be done after validating existing data
+            // Uncomment these lines after data validation:
+            // Schema::table('users', function (Blueprint $table) {
+            //     $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
+            //     $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            // });
         }
     }
 

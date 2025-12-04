@@ -14,5 +14,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
   // - uploadAvatar(): POST to ApiConfig.uploadAvatar with image file
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in ProfileRepositoryImpl. '
+      'Please implement this method according to the TODO comments above.'
+    );
+  }
 }

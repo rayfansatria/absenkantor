@@ -18,6 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _navigateBasedOnAuth() {
+    // Wait for auth status check to complete
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
       

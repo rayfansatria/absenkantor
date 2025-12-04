@@ -13,5 +13,10 @@ class PayrollRepositoryImpl implements PayrollRepository {
   // - downloadPayslip(): GET from ApiConfig.payslips/{id}/download
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in PayrollRepositoryImpl. '
+      'Please implement this method according to the TODO comments above.'
+    );
+  }
 }

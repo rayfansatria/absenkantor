@@ -13,5 +13,10 @@ class OvertimeRepositoryImpl implements OvertimeRepository {
   // - createOvertime(): POST to ApiConfig.overtimes with request data
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in OvertimeRepositoryImpl. '
+      'Please implement this method according to the TODO comments above.'
+    );
+  }
 }

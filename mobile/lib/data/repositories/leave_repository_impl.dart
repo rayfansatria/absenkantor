@@ -16,5 +16,10 @@ class LeaveRepositoryImpl implements LeaveRepository {
   // - getLeaveBalance(): GET from ApiConfig.leaveBalance
   
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError(
+      'Method ${invocation.memberName} is not yet implemented in LeaveRepositoryImpl. '
+      'Please implement this method according to the TODO comments above.'
+    );
+  }
 }
