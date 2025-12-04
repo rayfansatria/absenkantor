@@ -34,10 +34,6 @@ class DemoSeeder extends Seeder
             'address' => 'Jl. Sudirman No. 123, Jakarta Pusat',
             'phone' => '021-12345678',
             'email' => 'info@absenkantor.com',
-            'timezone' => 'Asia/Jakarta',
-            'latitude' => -6.208763,
-            'longitude' => 106.845599,
-            'geofence_radius' => 100,
             'is_active' => true,
         ]);
 
@@ -48,8 +44,6 @@ class DemoSeeder extends Seeder
             'name' => 'Kantor Pusat Jakarta',
             'address' => 'Jl. Sudirman No. 123, Jakarta Pusat',
             'phone' => '021-12345678',
-            'latitude' => -6.208763,
-            'longitude' => 106.845599,
             'is_active' => true,
         ]);
 
@@ -90,11 +84,10 @@ class DemoSeeder extends Seeder
         // 5. Create Work Shift
         $regularShift = WorkShift::create([
             'institution_id' => $institution->id,
-            'code' => 'REGULAR',
             'name' => 'Regular Office Hours',
-            'clock_in_time' => '08:00:00',
-            'clock_out_time' => '17:00:00',
-            'late_tolerance_minutes' => 15,
+            'start_time' => '08:00:00',
+            'end_time' => '17:00:00',
+            'work_hours' => 8,
             'is_active' => true,
         ]);
 
@@ -145,7 +138,7 @@ class DemoSeeder extends Seeder
                 'institution_id' => $institution->id,
                 'code' => $lt['code'],
                 'name' => $lt['name'],
-                'default_quota_days' => $lt['quota'],
+                'max_days_per_year' => $lt['quota'],
                 'requires_approval' => true,
                 'is_active' => true,
             ]);
@@ -242,14 +235,13 @@ class DemoSeeder extends Seeder
 
             // Create leave balances for each employee
             foreach ($leaveTypeModels as $leaveType) {
-                if ($leaveType->default_quota_days > 0) {
+                if ($leaveType->max_days_per_year > 0) {
                     EmployeeLeaveBalance::create([
                         'employee_id' => $employee->id,
                         'leave_type_id' => $leaveType->id,
                         'year' => now()->year,
-                        'initial_balance' => $leaveType->default_quota_days,
-                        'used_balance' => 0,
-                        'remaining_balance' => $leaveType->default_quota_days,
+                        'total_days' => $leaveType->max_days_per_year,
+                        'used_days' => 0,
                     ]);
                 }
             }
@@ -367,9 +359,10 @@ class DemoSeeder extends Seeder
         foreach ($announcements as $announcement) {
             Announcement::create([
                 'institution_id' => $institution->id,
+                'created_by' => $employees[0]->user->id ?? 1, // Admin user
                 'title' => $announcement['title'],
                 'content' => $announcement['content'],
-                'announcement_type' => $announcement['type'],
+                'priority' => $announcement['type'] == 'holiday' ? 'high' : 'normal',
                 'published_at' => now(),
                 'is_active' => true,
             ]);
