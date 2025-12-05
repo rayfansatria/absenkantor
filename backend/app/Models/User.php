@@ -12,14 +12,18 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'institution_id',
+        'employee_id',
         'username',
         'email',
         'password',
-        'employee_id',
+        'name',
+        'phone',
+        'avatar',
         'role',
+        'user_type',
         'is_active',
         'last_login_at',
-        'avatar',
     ];
 
     protected $hidden = [
@@ -48,6 +52,11 @@ class User extends Authenticatable implements JWTSubject
     }
 
     // Relationships
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
+
     public function employee()
     {
         return $this->belongsTo(Employee::class);

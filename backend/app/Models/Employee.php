@@ -19,13 +19,17 @@ class Employee extends Model
         'full_name',
         'email',
         'phone',
-        'birth_date',
         'address',
+        'date_of_birth',
+        'gender',
         'join_date',
         'status',
+        'photo_url',
+        'employee_status',
     ];
 
     protected $casts = [
+        'date_of_birth' => 'date',
         'birth_date' => 'date',
         'join_date' => 'date',
     ];

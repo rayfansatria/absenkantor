@@ -4,18 +4,21 @@ Backend API untuk sistem absensi kantor AbsenKantor, dibangun dengan Laravel 10.
 
 ## Features
 
-- JWT Authentication dengan tymon/jwt-auth
-- RESTful API untuk mobile application
-- Multi-tenant architecture (institution-based)
-- GPS validation untuk attendance
-- File upload (photos, documents)
-- Complete CRUD operations untuk semua fitur
+- ✅ JWT Authentication dengan tymon/jwt-auth
+- ✅ RESTful API untuk mobile application
+- ✅ Multi-tenant architecture (institution-based)
+- ✅ GPS validation dengan geofencing untuk attendance
+- ✅ File upload untuk foto absensi dan dokumen
+- ✅ Complete CRUD operations untuk semua fitur
+- ✅ Service layer untuk business logic (GeofenceService, AttendanceService, LeaveService)
+- ✅ Resource classes untuk consistent API responses
+- ✅ Comprehensive demo data seeder
 
 ## Tech Stack
 
 - **Framework**: Laravel 10.x
 - **PHP**: 8.1+
-- **Database**: MySQL 5.7+
+- **Database**: MySQL 5.7+ (menggunakan schema db_absensi_general)
 - **Authentication**: JWT (tymon/jwt-auth)
 - **Image Processing**: Intervention Image
 - **PDF Generation**: DomPDF
@@ -27,21 +30,22 @@ Backend API untuk sistem absensi kantor AbsenKantor, dibangun dengan Laravel 10.
 - PHP 8.1 or higher
 - Composer
 - MySQL 5.7 or higher
-- Git
+- Database `db_absensi_general` sudah dibuat dengan schema yang sesuai
 
-### Setup Steps
+### Quick Start (Sudah Siap Pakai)
 
-1. Install dependencies:
+1. **Install dependencies:**
 ```bash
+cd backend
 composer install
 ```
 
-2. Copy environment file:
+2. **Setup environment:**
 ```bash
 cp .env.example .env
 ```
 
-3. Configure database di `.env`:
+3. **Configure database di `.env`:**
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -51,32 +55,47 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-4. Generate application key:
+4. **Generate application key dan JWT secret:**
 ```bash
 php artisan key:generate
-```
-
-5. Generate JWT secret:
-```bash
 php artisan jwt:secret
 ```
 
-6. Run migrations:
+5. **Jalankan migrasi (pastikan database db_absensi_general sudah ada):**
 ```bash
 php artisan migrate
 ```
 
-7. Create storage symbolic link:
+6. **Seed demo data:**
+```bash
+php artisan db:seed
+```
+
+7. **Buat symbolic link untuk storage:**
 ```bash
 php artisan storage:link
 ```
 
-8. Start development server:
+8. **Start development server:**
 ```bash
 php artisan serve
 ```
 
 API akan berjalan di `http://localhost:8000`
+
+### Demo Credentials
+
+Setelah menjalankan seeder, gunakan credentials berikut untuk testing:
+
+**Admin:**
+- Username: `admin`
+- Email: `admin@absenkantor.com`
+- Password: `password123`
+
+**Employee:**
+- Username: `employee1`, `employee2`, `employee3`
+- Email: `employee1@absenkantor.com`, dst
+- Password: `password123`
 
 ## API Documentation
 
